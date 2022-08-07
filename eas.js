@@ -1,11 +1,12 @@
-const container = document.getElementById('div');
+const container = document.querySelector('.container');
 
-function makeGrid (rows, columns) {
-    container.style.setProperty('--grid-rows', rows);
-    container.style.setProperty('--grid-columns', columns);
-    for (c = 0; c < (rows * columns); c++) {
-        let cell = document.createElement('div');
-        cell.innerText = (c + 1);
-        container.appendChild(cell).className = 'grid-item';
-    };
-};
+function createGrid (rows, cols) {
+    for (let i = 0; i < (rows * cols); i++) {
+        const div = document.createElement('div');
+        container.style.gridTemplateRows = `repeat(${rows}, ifr)`;
+        container.style.gridTemplateColumns = `repeat(${cols}, ifr)`;
+        container.appendChild(div).classList.add('box');
+    }
+}
+
+createGrid(16, 16);
