@@ -5,19 +5,21 @@
     justify-content: center;
     width: 100%;
     height: 100vh;
+    border: solid rebeccapurple;
 }
 
-h1 {
+section h1 {
+    text-align: center;
     position: absolute;
     transform: translate(-50%);
     top: 50px;
     left: 50%;
-    font-size: 3em;
+    font-size: 4em;
 }
 
 .container {
-    height: 500px;
-    width: 500px;
+    height: 600px;
+    width: 600px;
     display: grid;
     z-index: 100;
 }
