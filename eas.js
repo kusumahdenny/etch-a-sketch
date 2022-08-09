@@ -1,8 +1,8 @@
 const container = document.querySelector('.container');
+const btnSize   = document.createElement('button');
 const btnGray   = document.createElement('button');
 const btnBlack  = document.createElement('button');
 const btnRgb    = document.createElement('button');
-const btnSize   = document.createElement('button');
 const buttonContainer = document.querySelector('.buttons');
 
 function createGrid (rows, cols) {
@@ -17,18 +17,28 @@ function createGrid (rows, cols) {
 
 createGrid(16, 16);
 
-function grayColor () {
-    const box = container.querySelectorAll('.box')
-    btnGray.textContent = 'GRAY';
-    btnGray.addEventListener('click', () => {
-        box.forEach(box => box.addEventListener('mouseover', () => {
-            let randomNum = Math.floor(Math.random() * 255);
-            box.style.background = `rgb(${randomNum}, ${randomNum}, ${randomNum})`;
-        }))
+function resize () {
+    btnSize.textContent = 'GRID SIZE';
+    btnSize.addEventListener('click', () => {
+        let input = prompt('what grid size do you want?')
+        if (input === null || input < 1 || input > 64) {
+            alert('input has to be between 1 to 64')
+            reset()
+            createGrid(16, 16)
+            blackColor()
+            grayColor()
+            rgbColor()
+        } else {
+            reset()
+            createGrid(input, input)
+            blackColor()
+            grayColor()
+            rgbColor()
+        } 
     })
-    buttonContainer.appendChild(btnGray).classList.add('btn')
+    buttonContainer.appendChild(btnSize).classList.add('btn');
 }
-grayColor();
+resize();
 
 function blackColor () {
     const box = container.querySelectorAll('.box')
@@ -41,6 +51,19 @@ function blackColor () {
     buttonContainer.appendChild(btnBlack).classList.add('btn')
 }
 blackColor();
+
+function grayColor () {
+    const box = container.querySelectorAll('.box')
+    btnGray.textContent = 'GRAY';
+    btnGray.addEventListener('click', () => {
+        box.forEach(box => box.addEventListener('mouseover', () => {
+            let randomNum = Math.floor(Math.random() * 255);
+            box.style.background = `rgb(${randomNum}, ${randomNum}, ${randomNum})`;
+        }))
+    })
+    buttonContainer.appendChild(btnGray).classList.add('btn')
+}
+grayColor();
 
 function rgbColor () {
     const box = container.querySelectorAll('.box')
@@ -57,24 +80,10 @@ function rgbColor () {
 }
 rgbColor();
 
-function resize () {
-    btnSize.textContent = 'GRID SIZE';
-    btnSize.addEventListener('click', () => {
-        let input = prompt('what grid size do you want?')
-        if (input === null || input < 1) {
-            reset()
-            createGrid(16, 16)
-            blackColor()
-            grayColor()
-            rgbColor()
-        } else {
-            reset()
-            createGrid(input, input)
-            blackColor()
-            grayColor()
-            rgbColor()
-        }
+function reset () {
+    const box = container.querySelectorAll('.box')
+    box.forEach(box => {
+        box.remove()
     })
-    buttonContainer.appendChild(btnSize).classList.add('btn');
 }
-resize();
+
